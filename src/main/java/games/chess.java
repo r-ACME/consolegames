@@ -7,18 +7,25 @@ public class chess {
 	board chessgame = new board();
 	entry console = new entry();
 	pieces moviment = new pieces();
-	private Integer whiteking = 1;
-	private Integer blackking = 1;
 	private String input_location;
 	private String movingPiece;
 	private Integer pieceLocationRFrom = 0; 
 	private Integer pieceLocationCFrom = 0; 
 	private Integer pieceLocationRTo = 0; 
-	private Integer pieceLocationCTo = 0; 	
+	private Integer pieceLocationCTo = 0;
+	private String color;
+	private String[] answer = {"YES", "Y"};
 	
-	public void game() {
+	public Boolean keepPlaying() {
+		if(chessgame.searchBoardBool("♔") && chessgame.searchBoardBool("♚"))
+			return true;
+		return false;
+	}
+	
+	
+	public Boolean game() {
 		chessgame.clearboard();
-		chessgame.printboard();
+		//chessgame.printboard();
 		
 		//console.clearscreen();
 		System.out.print("\n\n\n");
@@ -50,10 +57,10 @@ public class chess {
 		}
 		
 		//Begining of the match
-		while (blackking != 1 || whiteking != 0) {
+		do{
 			chessgame.printboard();
 		
-			System.out.print("\n\n\nWitch piece will move now Player " + (chessgame.getTurn() % 2 + 1) + "\n\n--> ");
+			System.out.print("\n\n\nWhich piece will move now Player " + (chessgame.getTurn() % 2 + 1) + "\n\n--> ");
 			input_location = console.readWord();
 			
 			switch(input_location.substring(0, 1)) {
@@ -91,7 +98,25 @@ public class chess {
 			}
 			
 			
-		}
+		} while (keepPlaying()); 
+		
+		if(chessgame.searchBoardBool("♔"))
+			color = "black";
+		else
+			color = "white";
+		
+		chessgame.printboard();
+		
+		System.out.print("\n\nThe " + color + " player win.\n\n");	
+		
+		System.out.print("\n\nPlay another game?\n\n");
+		input_location = console.readWord();
+		
+		for(String check:answer) {
+			if(check.equalsIgnoreCase(input_location))
+				return true;
+		}			
+		return false;
 	}
 		
 	

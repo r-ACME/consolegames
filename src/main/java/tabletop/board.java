@@ -145,7 +145,15 @@ public class board {
 		return this.board[row][column];
 	}
 	
-	
+	public Boolean searchBoardBool(String piece) {
+		for (int r = 0; r < ROWS; r++) {
+			for (int c = 0; c < COLUMNS; c++) {
+				if(board[r][c] == piece)
+					return true;
+			}
+		}
+		return false;
+	}
 	
 	
 	
