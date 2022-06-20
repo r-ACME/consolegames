@@ -1,0 +1,2 @@
+# consolegames
+Projects to learn.
